@@ -1,21 +1,16 @@
-# Sử dụng image node
-FROM node:18
+# Start with a base image
+FROM node:16
 
-# Tạo thư mục làm việc cho ứng dụng
+# Set the working directory
 WORKDIR /usr/src/app
 
-# Copy package.json và cài đặt các dependencies
+# Copy package.json and install dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy toàn bộ source code
+# Copy the rest of the app
 COPY . .
 
-# Build ứng dụng
-RUN npm run build
-
-# Lắng nghe trên cổng 3000
+# Expose the port and start the app
 EXPOSE 3000
-
-# Khởi chạy ứng dụng
-CMD [ "npm", "run", "start:prod" ]
+CMD ["npm", "run", "start:dev"]
